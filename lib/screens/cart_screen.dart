@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:flutter/services.dart';
 import 'package:square_in_app_payments/in_app_payments.dart';
 import 'package:square_in_app_payments/models.dart';
 
@@ -86,6 +83,30 @@ class OrderButton extends StatefulWidget {
 
 class _OrderButtonState extends State<OrderButton> {
   var _isLoading = false;
+  
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      child: _isLoading ? CircularProgressIndicator() : Text('ORDER NOW'),
+      onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
+          ? null
+          : () async {
+              setState(() {
+                _isLoading = true;
+              });
+              _pay();
+              await Provider.of<Orders>(context, listen: false).addOrder(
+                widget.cart.items.values.toList(),
+                widget.cart.totalAmount,
+              );
+              setState(() {
+                _isLoading = false;
+              });
+              widget.cart.clear();
+            },
+      textColor: Theme.of(context).primaryColor,
+    );
+  }
   Razorpay _razorpay;
 
   void _pay() {
@@ -184,29 +205,6 @@ class _OrderButtonState extends State<OrderButton> {
     Fluttertoast.showToast(msg: "EXTERNAL WALLET: " + response.walletName);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      child: _isLoading ? CircularProgressIndicator() : Text('ORDER NOW'),
-      onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
-          ? null
-          : () async {
-              setState(() {
-                _isLoading = true;
-              });
-              _pay();
-              await Provider.of<Orders>(context, listen: false).addOrder(
-                widget.cart.items.values.toList(),
-                widget.cart.totalAmount,
-              );
-              setState(() {
-                _isLoading = false;
-              });
-              widget.cart.clear();
-            },
-      textColor: Theme.of(context).primaryColor,
-    );
-  }
 }
 
 // class PaymentsRepository {
