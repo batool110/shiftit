@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/employee.dart';
+import '../providers/scheduleItem.dart';
 import '../providers/emloyees.dart';
 
 class WorkSchedule extends StatefulWidget {
   static const routeName = '/work-schedule';
 
-  final empName;
-  final empId;
-
-  WorkSchedule(this.empName, this.empId);
+  WorkSchedule(String name, String id);
 
   @override
   _WorkScheduleState createState() => _WorkScheduleState();
@@ -54,7 +51,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
 
         print('Work Date: '+ _addSchedule.date.toString());
         await Provider.of<Employees>(context, listen: false)
-            .addEmployeeSchedule([_addSchedule], widget.empName, widget.empId);
+            .addEmployeeSchedule([_addSchedule], 'Batool', 'sij292jd8z');
       } catch (error) {
         await showDialog(
           context: context,

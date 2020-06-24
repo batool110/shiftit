@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/providers/scheduleItem.dart';
 import 'package:bmi_calculator/screens/user_request_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: Cart(),
+        ),
+        ChangeNotifierProvider.value(
+          value: ScheduleItem(),
         ),
         ChangeNotifierProxyProvider<Auth, Orders>(
           builder: (ctx, auth, previousOrders) => Orders(

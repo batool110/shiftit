@@ -127,6 +127,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/employee.dart';
 import '../providers/emloyees.dart';
+import '../providers/scheduleItem.dart';
 
 class AddEmployeeScreen extends StatefulWidget {
   static const routeName = '/add-employee';
@@ -157,7 +158,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
   );
 
   var _addSchedule =
-      EmployeeSchedule(id: '', date: null, from: null, till: null);
+      EmployeeSchedule(id: DateTime.now().toString(), date: null, from: null, till: null);
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState.validate();

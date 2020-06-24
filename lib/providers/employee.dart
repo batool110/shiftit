@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import './scheduleItem.dart';
 
 class Employee with ChangeNotifier {
   final String id;
@@ -10,19 +11,4 @@ class Employee with ChangeNotifier {
     @required this.name,
     @required this.schedule,
   });
-}
-
-class EmployeeSchedule {
-  final String id;
-  final String date;
-  final String from;
-  final String till;
-
-  EmployeeSchedule({
-    @required this.id,
-    @required this.date,
-    @required this.from,
-    @required this.till,
-  });
-
 }
